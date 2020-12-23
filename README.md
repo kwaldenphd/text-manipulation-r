@@ -3,11 +3,13 @@
 <a href="http://creativecommons.org/licenses/by-nc/4.0/" rel="license"><img style="border-width: 0;" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" alt="Creative Commons License" /></a>
 This tutorial is licensed under a <a href="http://creativecommons.org/licenses/by-nc/4.0/" rel="license">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
 
-## Lab Goals
+## Lab Overview
 
 Many data sets contain character strings. For example, your data might include tweets from Twitter (which are basically just strings of characters), and perhaps you want to search for occurrences of a certain word or twitter handle. Alternatively, your data might have a location variable that includes city and state abbreviations, and you might want to extract those observations with location containing “NY.”
 
 In this tutorial, you will learn how to manipulate text data using the package stringr and how to match patterns using regular expressions.
+
+[Link to lab overview video in Panopto (ND users only)](https://notredame.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=1f515207-8f81-4ccd-9ca9-ac9a013f668f)
 
 ## Acknowledgements
 
