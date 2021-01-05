@@ -20,6 +20,10 @@ This lab procedure is adapted from and based on Ryan Miller's ["Intro to Text Ma
 - [Data and Environment Setup](#data-and-environment-setup)
 - [Basic `stringr` Syntax](#basic-stringr-syntax)
   * [Extracting and Locating Substrings](#extracting-and-locating-substrings)
+    * [`str_sub`](#str_sub)
+    * [`str_detect`](#str_detect)
+    * [`str_locate`](#str_locate)
+    * [`str_locate_all`](#str_locate_all)
   * [Regular Expressions and Metacharacters](#regular-expressions-and-metacharacters)
 - [U.S. Phone Number Example](#us-phone-number-example)
 - [Matching Brackets or `html` Tags](#matching-brackets-or-html-tags)
@@ -27,6 +31,7 @@ This lab procedure is adapted from and based on Ryan Miller's ["Intro to Text Ma
 - [Additional Resources](#additional-resources)
 - [Lab Notebook Questions](#lab-notebook-questions)
 
+[Click here](https://raw.githubusercontent.com/kwaldenphd/text-manipulation-r/main/text-manipulation-r-markdown.Rmd) and select the "Save as" option to download this lab as an RMarkdown file.
 
 # Data and Environment Setup
 
@@ -360,11 +365,11 @@ veggies <- c("carrot", "bean", "peas", "cabbage", "scallion", "asparagus")
 ```
 
 Using the vector veggies defined above using stringr functions to do the following:
-- A. Find those strings that contain the pattern “ea”.
-- B. Find those strings that end in “s”.
-- C. Find those strings that contain at least two “a”’s.
-- D. Find those strings that begin with any letter except “c”.
-- E. Find the starting and ending position of the pattern “ca” in each string.
+i. Find those strings that contain the pattern “ea”.
+ii. Find those strings that end in “s”.
+iii. Find those strings that contain at least two “a”’s.
+iv. Find those strings that begin with any letter except “c”.
+v. Find the starting and ending position of the pattern “ca” in each string.
 
 ## Question 2
 
