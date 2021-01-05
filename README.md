@@ -17,12 +17,22 @@ This lab procedure is adapted from and based on Ryan Miller's ["Intro to Text Ma
 
 # Table of Contents
 
+- [Data and Environment Setup](#data-and-environment-setup)
+- [Basic `stringr` Syntax](#basic-stringr-syntax)
+  * [Extracting and Locating Substrings](#extracting-and-locating-substrings)
+  * [Regular Expressions and Metacharacters](#regular-expressions-and-metacharacters)
+- [U.S. Phone Number Example](#us-phone-number-example)
+- [Matching Brackets or `html` Tags](#matching-brackets-or-html-tags)
+- [Optional: Email Validation](#optional-email-validation)
+- [Additional Resources](#additional-resources)
+- [Lab Notebook Questions](#lab-notebook-questions)
+
 
 # Data and Environment Setup
 
-This lab focuses on the tidyverse `stringr` package.
+1. This lab focuses on the tidyverse `stringr` package.
 
-[`stringr`](https://stringr.tidyverse.org/) "provide[s] a cohesive set of functions designed to make working with strings as easy as possible"
+2. [`stringr`](https://stringr.tidyverse.org/) "provide[s] a cohesive set of functions designed to make working with strings as easy as possible"
 
 
 ```R
@@ -31,24 +41,24 @@ This lab focuses on the tidyverse `stringr` package.
 library(stringr)
 ```
 
-`stringr` is part of what is known as "the Tidyverse," in the RStudio user community.
+3. `stringr` is part of what is known as "the Tidyverse," in the RStudio user community.
 
-According to https://www.tidyverse.org/, "the tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."
+4. According to https://www.tidyverse.org/, "the tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."
 
-To install and load all packages that are part of the tidyverse core, you can install the parent tidyverse package.
+5. To install and load all packages that are part of the tidyverse core, you can install the parent `tidyverse` package.
 
 ```R
 install.package("tidyverse")
 library(tidyverse)
 ```
 
-As of December 2020, the tidyverse core incldues the following packages: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats.
+6. As of December 2020, the tidyverse core incldues the following packages: ggplot2, dplyr, tidyr, readr, purrr, tibble, stringr, forcats.
 
-# Basic `stringr` syntax
+# Basic `stringr` Syntax
 
-`stringr` functions start with `str_` and take a vector of strings as the first argument.
+7. `stringr` functions start with `str_` and take a vector of strings as the first argument.
 
-The `stringr` commands we'll be working with in this lab include:
+8. The `stringr` commands we'll be working with in this lab include:
 
 Command | Description
 --- | ---
@@ -58,13 +68,15 @@ Command | Description
 `str_locage_all` | Give positions of all occurrences of a substring
 `str_replace` | Replace one substring with another
 
-# Extracting and Locating Substrings
+## Extracting and Locating Substrings
 
-We begin by introducing some basic functions in the stringr package.
+9. We begin by introducing some basic functions in the `stringr` package.
 
-The str_sub function extracts substrings from a string (a string being a sequence of alpha-numeric characters) given the starting and ending position. 
+### `str_sub`
 
-This example extracts the characters in the second through fourth position for each string in fruits:
+10. The `str_sub` function extracts substrings from a string (a string being a sequence of alpha-numeric characters) given the starting and ending position. 
+
+11. This example extracts the characters in the second through fourth position for each string in fruits:
 
 ```R
 # install.packages("stringr")
@@ -74,33 +86,39 @@ fruits <- c("apple", "pineapple", "Pear", "orange", "peach", "banana")
 str_sub(fruits, 2, 4)
 ```
 
-The str_detect function checks to see if any instance of a pattern occurs in a string.
+### `str_detect`
+
+12. The `str_detect` function checks to see if any instance of a pattern occurs in a string.
 
 ```R
 str_detect(fruits, "p")  #any occurrence of 'p'?
 ```
 
-Note that pattern matching is case-sensitive.
+13. Note that pattern matching is case-sensitive.
 
-To locate the position of a pattern within a string, use str_locate:
+### `str_locate`
+
+14. To locate the position of a pattern within a string, use str_locate:
 
 ```R
 str_locate(fruits, "an")
 ```
 
-Only the fourth and sixth fruits contain “an”. In the case of “banana,” note that only the first occurrence of “an” is returned.
+15. Only the fourth and sixth fruits contain “an”. In the case of “banana,” note that only the first occurrence of “an” is returned.
 
-To find all instances of “an” within each string:
+16. To find all instances of “an” within each string:
 
 ```R
 str_locate_all(fruits,"an")
 ```
 
-The command str_locate_all returns a list, or an object where each element is another object (possibly of different types). 
+### `str_locate_all`
 
-In this example our output is a list with six elements, where each element is a matrix with columns start and end.
+17. The command str_locate_all returns a list, or an object where each element is another object (possibly of different types). 
 
-A few other examples:
+18. In this example our output is a list with six elements, where each element is a matrix with columns start and end.
+
+19. A few other examples:
 
 ```R
 out <- str_locate_all(fruits, "an")
@@ -123,15 +141,15 @@ unlist(out) # coerces the list into a vector
 length(unlist(out))/2    #total number of times "an" occurs in vector fruits
 ```
 
-# Regular Expressions & Metacharacters
+## Regular Expressions and Metacharacters
 
-Now suppose we want to detect or locate words that begin with “p” or end in “e,” or match a more complex criteria. 
+20. Now suppose we want to detect or locate words that begin with “p” or end in “e,” or match a more complex criteria. 
 
-A regular expression is a sequence of characters that define a pattern.
+21. A regular expression is a sequence of characters that define a pattern.
 
-Let’s detect strings that begin with either “p” or “P”. 
+22. Let’s detect strings that begin with either “p” or “P”. 
 
-The metacharacter “^” is used to indicate the beginning of the string, and “[Pp]” is used to indicate “P” or “p”.
+23. The metacharacter `^` is used to indicate the beginning of the string, and `[Pp]` is used to indicate “P” or “p”.
 
 ```R
 str_detect(fruits, "^[Pp]")
@@ -141,13 +159,13 @@ str_detect(fruits, "^[Pp]")
 str_detect(fruits, "[Pp]") ## Notice the impact of the metacharacter "^"
 ```
 
-Similarly, the metacharacter “$” is used to signify the end of a string.
+24. Similarly, the metacharacter `$` is used to signify the end of a string.
 
 ```R
 str_detect(fruits, "e$" )   #end in 'e'
 ```
 
-Other metacharacters that interact with `stringr` package in RStudio:
+25. Other metacharacters that interact with `stringr` package in RStudio:
 
 Character | Description
 --- | ---
@@ -162,44 +180,44 @@ Character | Description
 `{,n}` | Matches at most n times
 `[]` | List of permitted characters 
 
-For more on regular expressions in RStudio: [Regular Expressions Cheat Sheet](https://rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
+26. For more on regular expressions in RStudio: [Regular Expressions Cheat Sheet](https://rstudio.com/wp-content/uploads/2016/09/RegExCheatsheet.pdf)
 
-For instance, “.” matches any single character:
+27. For instance, `.` matches any single character.
 
-gr.y matches gray, grey, gr9y, grEy, etc.
+28. `gr.y` matches gray, grey, gr9y, grEy, etc.
 
-And * indicates 0 or more instances of the preceding character:
+29. And `*` indicates 0 or more instances of the preceding character.
 
-xy*z matches xz, xyz, xyyz, xyyyz, xyyyyz, etc.
+30. `xy*z` matches xz, xyz, xyyz, xyyyz, xyyyyz, etc.
 
-To detect the letter “a” followed by 0 or more occurrences of “p”:
+31. To detect the letter “a” followed by 0 or more occurrences of “p”:
 
 ```R
 str_detect(fruits, "ap*")     
 ```
 
-Compare the previous command to:
+32. Compare the previous command to:
 ```R
 str_detect(fruits, "ap+")
 ```
 
-The “+” in front of the “p” indicates that we want 1 or more occurrences of “p.”
+33. The `+` in front of the `p` indicates that we want 1 or more occurrences of “p.”
 
-Here is a more complex pattern:
+34. Here is a more complex pattern:
 
 ```R
 str_detect(fruits, "^a(.*)e$") 
 ```
 
-The anchors ^ and $ are used to indicate we want strings that begin with the letter a and end with e. 
+35. The anchors `^` and `$` are used to indicate we want strings that begin with the letter a and end with e. 
 
-The `(.*)` indicates that we want to match 0 or more occurrences of any character. 
+36. The `(.*)` indicates that we want to match 0 or more occurrences of any character. 
 
-Parentheses can be used to group parts of the pattern for readability, you’ll get the same results without them.
+37. Parentheses can be used to group parts of the pattern for readability, you’ll get the same results without them.
 
 # U.S. Phone Number Example
 
-Suppose we want to extract 10 digit United States phone numbers from a data set of text strings.
+38. Suppose we want to extract 10 digit United States phone numbers from a data set of text strings.
 
 ```R
 a1 <- "Home: 507-645-5489"
@@ -210,15 +228,15 @@ info <- c(a1, a2, a3, a4)
 info
 ```
 
-To derive a regular expression for valid 10 digit phone numbers we must recognize a few patterns.
+39. To derive a regular expression for valid 10 digit phone numbers we must recognize a few patterns.
 
-A United States area code must start with a 2 or higher so we use brackets again to indicate a range: [2-9]
+40. A United States area code must start with a 2 or higher so we use brackets again to indicate a range: `[2-9]`
 
-The next two digits in the area code can be between 0 and 9, so we write [0-9]{2}.
+41. The next two digits in the area code can be between 0 and 9, so we write `[0-9]{2}`.
 
-The area code is separated from the other digits using either a “.” or “-”, so we use [-.] to indicate either a dash or a period.
+42. The area code is separated from the other digits using either a “.” or “-”, so we use `[-.]` to indicate either a dash or a period.
 
-The complete regular expression is given below:
+43. The complete regular expression is given below:
 
 ```R
 phone <- "([2-9][0-9]{2})[-.]([0-9]{3})[-.]([0-9]{4})"
@@ -226,21 +244,21 @@ out <- str_detect(info, phone)
 out
 ```
 
-Again, str_detect just indicates the presence or absence of the pattern in question.
+44. Again, `str_detect` just indicates the presence or absence of the pattern in question.
 
 ```R
 str_extract(info, phone)
 ```
 
-We can also use stringr to do make manipulations such as anonymizing the phone numbers:
+45. We can also use `stringr` to do make manipulations such as anonymizing the phone numbers:
 
 ```R
 str_replace(info, phone, "XXX-XXX-XXXX")
 ```
 
-As we noted above, certain characters are reserved. 
+46. As we noted above, certain characters are reserved. 
 
-If we want to actually reference them in a regular expression, either put them within a bracket, or use a double forward slash.
+47. If we want to actually reference them in a regular expression, either put them within a bracket `[]`, or use a double forward slash `\\`.
 
 ```R
 str_locate(info, "[.]")  #find first instance of period
@@ -254,7 +272,7 @@ str_locate(info, "\\.")  #same
 str_locate(info, ".")    #first instance of any character
 ```
 
-Metacharacters have different meanings within brackets.
+48. Metacharacters have different meanings within brackets.
 
 ```R
 str_detect(fruits, "^[Pp]")  #starts with 'P' or 'p'
@@ -268,68 +286,51 @@ str_detect(fruits, "[^Pp]")  #any character except 'P' or 'p'
 str_detect(fruits, "^[^Pp]") #start with any character except 'P' or 'p'
 ```
 
-See the [stringr cheatsheet](http://edrub.in/CheatSheets/cheatSheetStringr.pdf) for a summary of regular expressions.
+49. See the [stringr cheatsheet](http://edrub.in/CheatSheets/cheatSheetStringr.pdf) for a summary of regular expressions.
 
-# Matching brackets or `html` tags
+# Matching Brackets or `html` Tags
 
-In many cases, you may want to match brackets such as [8] or html tags such as <table>.
+50. In many cases, you may want to match brackets such as `[8]` or html tags such as `<table>`.
 
 ```R
 out <- c("abc[8]", "abc[9][20]", "abc[9]def[10][7]", "abc[]")
 out
 ```
 
-In order to better understand what regular expressions are matching here, we will replace pieces of the above strings with the character “X”.
+51. In order to better understand what regular expressions are matching here, we will replace pieces of the above strings with the character “X”.
 
-To replace the left bracket, we write `\\[`. 
+52. To replace the left bracket, we write `\\[`. 
 
-Next we want to match 0 or more occurrences of any character except the right bracket so we need `[^]]*`. 
+53. Next we want to match 0 or more occurrences of any character except the right bracket so we need `[^]]*`. 
 
-Finally, to match the right bracket `\\]`.
+54. Finally, to match the right bracket `\\]`.
 
 ```R
 str_replace_all(out, "\\[([^]]*)\\]", "X")
 ```
 
-Compare the previous example with:
+55. Compare the previous example with:
 
 ```R
 str_replace_all(out, "\\[(.*)\\]", "X")
 ```
 
-In this case, we match the first left bracket (indicated by the `\\[`), followed by 0 or more instances of any character (the `(.*)` portion), which could be a right bracket until the final right bracket `\\]`.
-
-# Practice Problems
-
-Question #1
-
-```R
-veggies <- c("carrot", "bean", "peas", "cabbage", "scallion", "asparagus")
-```
-
-Using the vector veggies defined above using stringr functions to do the following:
-- A. Find those strings that contain the pattern “ea”.
-- B. Find those strings that end in “s”.
-- C. Find those strings that contain at least two “a”’s.
-- D. Find those strings that begin with any letter except “c”.
-- E. Find the starting and ending position of the pattern “ca” in each string.
-
-Question #2: The regular expression `"^[Ss](.*)(t+)(.+)(t+)"` matches “scuttlebutt”, “Stetson”, and “Scattter”, but not “Scatter.” Why?
+56. In this case, we match the first left bracket (indicated by the `\\[`), followed by 0 or more instances of any character (the `(.*)` portion), which could be a right bracket until the final right bracket `\\]`.
 
 # Optional: Email Validation
 
-One real world application of string matching is detecting whether or not an email addres is valid. Examples of some valid email addresses are shown below:
+57. One real world application of string matching is detecting whether or not an email addres is valid. Examples of some valid email addresses are shown below:
 - “simple@example.com”
 - “johnsmith@email.gov”
 - “marie.curie@college.edu”,
 - “very_common@example.com”,
 - “a.little.lengthy.but.ok@dept.example.com”,
 
-For this question, write code that takes the vector given below and identifies the first 5 email addresses as valid, and indentifies the last 3 as invalid.
+58. For this question, write code that takes the vector given below and identifies the first 5 email addresses as valid, and indentifies the last 3 as invalid.
 
-You may assume that a valid email address has a top-level domain (ie: .com, .gov, .fr, …) that is either 2 or 3 letters. 
+59. You may assume that a valid email address has a top-level domain (ie: .com, .gov, .fr, …) that is either 2 or 3 letters. 
 
-You may also assume that letters, numbers, ., -, and _ are the only valid characters in the core components of the address (see the 6th email below for an invalid email).
+60. You may also assume that letters, numbers, `.`, `-`, and `_` are the only valid characters in the core components of the address (see the 6th email below for an invalid email).
 
 ```R
 emails = c(
@@ -345,11 +346,26 @@ emails = c(
 
 # Additional Resources
 
-[`stringr` cheat sheet](http://edrub.in/CheatSheets/cheatSheetStringr.pdf_
-
-[Chapter 14 "Strings"](https://r4ds.had.co.nz/strings.html) in Hadley Wickham and Garrett Grolemund's [*R for Data Science*](https://r4ds.had.co.nz/index.html) (O'Reilly, 2017).
-
-Gaston Sanchez, [*Handling and Processing Strings in R*](http://www.gastonsanchez.com/Handling and Processing Strings in R.pdf) (Trowchez Editions, 2013).
+61. Additional resources for using the `stringr` package:
+- [`stringr` cheat sheet](http://edrub.in/CheatSheets/cheatSheetStringr.pdf_
+- [Chapter 14 "Strings"](https://r4ds.had.co.nz/strings.html) in Hadley Wickham and Garrett Grolemund's [*R for Data Science*](https://r4ds.had.co.nz/index.html) (O'Reilly, 2017).
+- Gaston Sanchez, [*Handling and Processing Strings in R*](http://www.gastonsanchez.com/Handling and Processing Strings in R.pdf) (Trowchez Editions, 2013).
 
 # Lab Notebook Questions
 
+## Question 1
+
+```R
+veggies <- c("carrot", "bean", "peas", "cabbage", "scallion", "asparagus")
+```
+
+Using the vector veggies defined above using stringr functions to do the following:
+- A. Find those strings that contain the pattern “ea”.
+- B. Find those strings that end in “s”.
+- C. Find those strings that contain at least two “a”’s.
+- D. Find those strings that begin with any letter except “c”.
+- E. Find the starting and ending position of the pattern “ca” in each string.
+
+## Question 2
+
+The regular expression `"^[Ss](.*)(t+)(.+)(t+)"` matches “scuttlebutt”, “Stetson”, and “Scattter”, but not “Scatter.” Why?
